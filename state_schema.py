@@ -1,11 +1,12 @@
-from typing import TypedDict, List, Optional
+from typing import List, TypedDict
+
 
 class TravelState(TypedDict):
-    city: str
+    destination: str
     days: int
+    slots: List[str]
     preferences: List[str]
-    lat: Optional[float]
-    lon: Optional[float]
-    attractions: Optional[List[dict]]
-    filtered_attractions: Optional[List[dict]]
-    itinerary: Optional[str]
+    location: dict
+    raw_attractions: List[dict]
+    tagged_attractions: List[dict]
+    itinerary: str

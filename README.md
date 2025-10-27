@@ -3,28 +3,30 @@
 A multi agent-based travel-planning prototype that:
 - Geocodes a destination
 - Discovers attractions
+- Tags attractions
 - Filters by user preferences
 - Generates a day-by-day itinerary
 
-Built around a simple state graph (workflow.py) that composes modular agents.
+Built around a simple state graph (orchestrator.py) that composes modular agents.
 
 Project structure
 - README.md
 - .env
 - main.py
-- workflow.py
+- orchestrator.py
 - state_schema.py
 - requirements.txt
 - agents/
   - geocoder_agent.py
   - discovery_agent.py
-  - preference_filter_agent.py
+  - tagging_agent.py
   - itinerary_agent.py
 - tools/
   - geocoder.py
   - geoapify_client.py
 - utils/
   - input.py
+  - logger.py
 
 
 Setup
@@ -46,7 +48,7 @@ Run
 ```sh
 python main.py
 ```
-The CLI will prompt for destination, number of days, and preferences, then run the composed workflow (see `workflow.build_graph`).
+The CLI will prompt for destination, number of days, and preferences, then run the composed workflow (see `orchestrator.build_travel_graph`).
 
 Notes
 - Network calls (Geoapify, geocoding) require valid API credentials and internet access.

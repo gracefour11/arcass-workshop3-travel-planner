@@ -1,0 +1,32 @@
+Input:
+user_input = {
+    "destination": "Singapore",
+    "days": 5,
+    "preferences": ["nature", "educational"]
+}
+
+Output:
+Day 1
+- Morning: Jacob Ballas Children's Garden
+- Afternoon: National Orchid Garden
+- Evening: Light Show: Garden Rhapsody
+
+Day 2
+- Morning: Healing Garden
+- Afternoon: The River Merchants
+- Evening: Light Show: Spectra
+
+Day 3
+- Morning: Giant Panda Forest
+- Afternoon: Bird
+- Evening: Henderson Waves Bridge
+
+Day 4
+- Morning: Learning Forest
+- Afternoon: Haw Par Villa
+- Evening: 1-Altitude Viewing Gallery
+
+Day 5
+- Morning: Coral Park Magic Tree
+- Afternoon: Chinatown
+- Evening: Observation Tower

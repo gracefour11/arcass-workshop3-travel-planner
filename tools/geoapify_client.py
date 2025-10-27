@@ -10,7 +10,7 @@ GEOAPIFY_API_KEY = os.getenv("GEOAPIFY_API_KEY")
 def get_geoapify_attractions(city_name, lat, lon, radius=10000, limit=30):
     url = "https://api.geoapify.com/v2/places"
     params = {
-        "categories": "tourism",
+        "categories": "tourism.attraction",
         "filter": f"circle:{lon},{lat},{radius}",
         "limit": limit,
         "apiKey": GEOAPIFY_API_KEY,
