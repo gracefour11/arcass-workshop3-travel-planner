@@ -1,0 +1,4 @@
+.env
+__pycache__/
+archive/
+test_geoapify.py
