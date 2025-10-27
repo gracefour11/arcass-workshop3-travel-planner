@@ -3,6 +3,5 @@ langchain
 openai
 python-dotenv
 requests
-wikipedia
 langchain-core
 langchain-openai
