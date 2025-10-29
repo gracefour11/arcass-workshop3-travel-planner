@@ -126,6 +126,26 @@ def get_user_input():
     prefs = prompt_input("Enter your travel preferences (comma-separated, e.g., nature, food, history): ")
     preferences = [p.strip().lower() for p in prefs.split(",") if p.strip()]
 
+    # read raw limitations from user
+    limitations_raw = prompt_input("Enter your travel limitations (comma-separated, e.g., avoid:bars, no_night_activities, max_walking_distance_km, max_total_attractions, max_per_day): ").strip()
+    raw_tokens = [l.strip().lower() for l in limitations_raw.split(",") if l.strip()]
+
+    def _normalize_token(tok: str) -> str:
+        # support "no X", "no_x", "avoid:X", "avoid_x"
+        tok = tok.strip().lower()
+        if tok.startswith("avoid:"):
+            tok = tok.split(":", 1)[1].strip()
+        if tok.startswith("no "):
+            tok = tok[3:].strip()
+        tok = tok.replace("no_", "").replace("avoid_", "")
+        return tok
+
+    if raw_tokens:
+        avoid_list = [_normalize_token(t) for t in raw_tokens]
+        limitations = {"avoid_categories": avoid_list}
+    else:
+        limitations = {}
+
     return TravelState(
         destination = city,
         days = days,
@@ -134,16 +154,17 @@ def get_user_input():
         location = None,
         raw_attractions = None,
         tagged_attractions = None,
-        itinerary = None
-    )        
+        itinerary = None,
+        limitations = limitations
+    )
 
 
 # TODO: replace user_input with get_user_input()
-user_input = {
-    "destination": "Singapore",
-    "days": 5,
-    "preferences": ["nature", "educational"]
-}
+# user_input = {
+#     "destination": "Singapore",
+#     "days": 5,
+#     "preferences": ["nature", "educational"]
+# }
 
-itinerary = run_orchestrator(user_input)
+itinerary = run_orchestrator(get_user_input())
 print(itinerary)

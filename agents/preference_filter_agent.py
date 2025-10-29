@@ -15,6 +15,14 @@ You are a semantic tagger for a list of tourist attractions.
 4. By default, include food in the list.
 5. Sort the list by user preference first followed by default preference.
 6. Return a JSON list of filtered attractions with their name and tags.
+Example input:
+User preferences: nature, history
+Attractions:
+- Marina Bay Sands
+- Gardens by the Bay
+- National Gallery Singapore
+- Sentosa Island
+- Singapore Botanic Gardens
 """
 
 llm = ChatOpenAI(

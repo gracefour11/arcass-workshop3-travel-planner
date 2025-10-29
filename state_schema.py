@@ -1,4 +1,4 @@
-from typing import List, TypedDict
+from typing import Any, Dict, List, Optional, TypedDict
 
 
 class TravelState(TypedDict):
@@ -10,3 +10,4 @@ class TravelState(TypedDict):
     raw_attractions: List[dict]
     tagged_attractions: List[dict]
     itinerary: str
+    limitations: Optional[Dict[str, Any]] = {}

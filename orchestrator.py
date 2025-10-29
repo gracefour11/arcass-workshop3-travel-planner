@@ -34,22 +34,68 @@ def build_travel_graph():
 
     # Step 2: Discover attractions
     def discover_node(state):
-        result = attraction_discovery_agent(state["location"])
-        return {"raw_attractions": result["attractions"]}
+        location = state["location"]
+        limitations = state.get("limitations", {})
+        try:
+            result = attraction_discovery_agent(location, limitations=limitations)
+        except TypeError:
+            result = attraction_discovery_agent(location)
+        return {"raw_attractions": result.get("attractions", [])}
 
     # Step 3: Tag attractions (new)
     def tag_node(state):
-        attractions = state.get("raw_attractions", [])
-        tagged = [tag_attraction(a) for a in attractions]
+        attractions = state.get("raw_attractions", []) or []
+        # Normalize limitations to dict
+        limitations = state.get("limitations") or {}
+        if isinstance(limitations, list):
+            limitations = {"avoid_categories": limitations}
+        if isinstance(limitations, str):
+            try:
+                import json
+                parsed = json.loads(limitations)
+                limitations = parsed if isinstance(parsed, dict) else {"avoid_categories": [limitations]}
+            except Exception:
+                limitations = {"avoid_categories": [limitations]}
+
+        # Normalize preferences to a list
+        preferences = state.get("preferences") or []
+        if isinstance(preferences, str):
+            preferences = [p.strip().lower() for p in preferences.split(",") if p.strip()]
+        elif not isinstance(preferences, (list, tuple)):
+            preferences = []
+
+        # Ensure we only pass dict attractions to tag_attraction (flatten nested lists/tuples)
+        normalized = []
+        bad = []
+        for i, a in enumerate(attractions):
+            if isinstance(a, dict):
+                normalized.append(a)
+            elif isinstance(a, (list, tuple)):
+                for item in a:
+                    if isinstance(item, dict):
+                        normalized.append(item)
+                    else:
+                        bad.append((i, type(item).__name__))
+            else:
+                bad.append((i, type(a).__name__))
+
+        if bad:
+            logger.debug("Skipping non-dict attraction entries (index, type): %s", bad)
+
+        # pass preferences through to bias tagging (e.g., ensure food tags if user likes food)
+        tagged = [tag_attraction(a, limitations=limitations, preferences=preferences) for a in normalized]
         return {"tagged_attractions": tagged}
-    
+
+
+
     # Step 4: Generate itinerary (refactored)
     def itinerary_node(state):
         input_data = {
             "days": state["days"],
             "slots": state["slots"],
             "preferences": state.get("preferences", []),
-            "attractions": state["tagged_attractions"]
+            "attractions": state["tagged_attractions"],
+            "limitations": state.get("limitations", {})
         }
         itinerary = generate_itinerary(input_data)
         return {"itinerary": itinerary}
@@ -78,7 +124,8 @@ def run_orchestrator(user_input):
         "destination": user_input["destination"],
         "days": user_input["days"],
         "slots": ["morning", "afternoon", "evening"],
-        "preferences": user_input.get("preferences", [])
+        "preferences": user_input.get("preferences", []),
+        "limitations": user_input.get("limitations", {})
     }, config)
 
     if not result.get("itinerary"):
