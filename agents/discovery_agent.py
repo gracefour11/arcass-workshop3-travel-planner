@@ -1,4 +1,7 @@
 from tools.geoapify_client import get_geoapify_attractions
+from utils.logger import get_logger
+import logging
+logger = get_logger("discovery_agent", level=logging.DEBUG)
 
 # def attraction_discovery_agent(state):
 #     print(f"📍 Discovering attractions in {state['city']}...")
@@ -48,7 +51,7 @@ def attraction_discovery_agent(location, limit=None, limitations=None):
 
     limitations = _normalize_limitations(limitations)
 
-    print(f"📍 Discovering attractions in {city}...")
+    logger.info(f"Discovering attractions in {city}...")
     attractions = get_geoapify_attractions(city, lat, lon) or []
 
     # Apply limitations (if provided)
