@@ -31,7 +31,7 @@ Project structure
 
 Setup
 1. Setup Python virtual environment:
-    ```shs
+    ```sh
     python -m venv .venv
     # Windows: .venv\Scripts\activate
     source .venv/bin/activate

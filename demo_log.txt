@@ -1,32 +1,31 @@
 Input:
-user_input = {
-    "destination": "Singapore",
-    "days": 5,
-    "preferences": ["nature", "educational"]
-}
+Enter your destination city: London
+Enter number of travel days: 5
+Enter your travel preferences (comma-separated, e.g., nature, food, history): history, food   
+Enter your travel limitations (comma-separated, e.g., avoid:bars, no_night_activities, max_walking_distance_km, max_total_attractions, max_per_day): avoid:bars
 
 Output:
 Day 1
-- Morning: Jacob Ballas Children's Garden
-- Afternoon: National Orchid Garden
-- Evening: Light Show: Garden Rhapsody
+- Morning: Buckingham Palace (historical, sightseeing, cultural)
+- Afternoon: Shakespeare's Globe (food, historical, cultural)
+- Evening: Banqueting House (historical, sightseeing, indoor)
 
 Day 2
-- Morning: Healing Garden
-- Afternoon: The River Merchants
-- Evening: Light Show: Spectra
+- Morning: The Monument to the Great Fire of London (museum, historical, sightseeing)
+- Afternoon: Bank of England (historical, sightseeing, educational)
+- Evening: Royal Festival Hall (food, historical, entertainment)
 
 Day 3
-- Morning: Giant Panda Forest
-- Afternoon: Bird
-- Evening: Henderson Waves Bridge
+- Morning: Kenwood House (historical, museum, sightseeing)
+- Afternoon: Dana Research Centre and Library (educational, historical, museum)
+- Evening: Camden Market (historical, shopping, food)
 
 Day 4
-- Morning: Learning Forest
-- Afternoon: Haw Par Villa
-- Evening: 1-Altitude Viewing Gallery
+- Morning: St. Mary-le-Bow (historical, sightseeing, cultural)
+- Afternoon: The Old Curiosity Shop (historical, sightseeing, cultural)
+- Evening: Chelsea Physic Garden (historical, park, nature)
 
 Day 5
-- Morning: Coral Park Magic Tree
-- Afternoon: Chinatown
-- Evening: Observation Tower
+- Morning: The Royal Central School of Speech and Drama (educational, historical, cultural)
+- Afternoon: Tower of Church of St Augustine (historical, sightseeing, outdoor)
+- Evening: Kensington Palace (historical, sightseeing, cultural)

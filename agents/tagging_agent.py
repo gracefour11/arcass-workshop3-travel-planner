@@ -19,7 +19,7 @@ logger = get_logger("tagging_agent", level=logging.DEBUG)
 # Initialize LLM
 llm = ChatOpenAI(
     model="gpt-5-nano",
-    temperature=0.3,
+    temperature=os.getenv("OPENAI_TEMPERATURE"),
     openai_api_key=os.getenv("OPENAI_API_KEY"),
     # max_tokens=int(os.getenv("OPENAI_MAX_TOKENS", "128"))
 )
